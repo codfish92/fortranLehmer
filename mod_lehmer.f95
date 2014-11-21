@@ -1,16 +1,16 @@
 MODULE Lehmer
 	IMPLICIT NONE
 	PRIVATE n, g, mod_seed
-	INTEGER::n=2147483647, g=7**5, mod_seed
+	INTEGER*8::n=2147483647, g=48271, mod_seed = 0
 	contains 
 		subroutine seed(x)
-			INTEGER::mod_seed, x
+			INTEGER::x
 			mod_seed = x
 		end subroutine
-		function randint() 
-			INTEGER::randint
-			randint = mod(g*mod_seed, n) 
-			call seed(randint)
+		function randint() Result(randomint)
+			INTEGER::randomint
+			randomint = mod(g*mod_seed, n)
+			call seed(randomint)
 		end function
 
 end module 
