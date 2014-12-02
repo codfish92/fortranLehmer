@@ -21,6 +21,16 @@ MODULE Lehmer
 			REAL::lambda
 			x = -1*lambda*log(uniform())
 		end function
+		function randintRange(a, b) Result(randomint)
+			INTEGER::a, b
+			INTEGER::randomint
+			randomint = mod(randint(), (b-a)+1)+a 
+		end function
+		function uniformRange(a, b) Result (randomuni)
+			INTEGER:: a, b
+			REAL::randomuni
+			randomuni=uniform()*(b-a)+a
+		end function
 		
 
 end module 
