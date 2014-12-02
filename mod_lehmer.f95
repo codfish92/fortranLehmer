@@ -12,5 +12,15 @@ MODULE Lehmer
 			randomint = mod(g*mod_seed, n)
 			call seed(randomint)
 		end function
+		function uniform() Result(randomuni)
+			REAL:: randomuni
+			randomuni = randint()/(n*1.0)
+		end function
+		function exponential(lambda) Result(x)
+			REAL:: x
+			REAL::lambda
+			x = -1*lambda*log(uniform())
+		end function
+		
 
 end module 
