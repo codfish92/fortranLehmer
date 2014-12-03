@@ -39,16 +39,20 @@ MODULE Lehmer
             randomuni=uniform()*(b-a)+a
         end function
 
-        function gaussApprox() Result(gauss)
+        function gaussApprox(v) Result(gauss)
+            REAL::v
             REAL::u1, u2
             REAL::pi = 4.*atan(1.)
             REAL::gauss
+
+            ! Uses Box-Muller Transform
             !check if there is a value from the last pair 
             if(z1== -1000000.0) then 
-                u1 = uniform()
-                u2 = uniform()
-                gauss = ((-2*log(u1))**.5) * sin(2*pi*u2)
-                z1 = ((-2*log(u1))**.5) * cos(2*pi*u2)
+                u1 = -2 * log(uniform())
+                u2 = uniform() * 2 * pi
+
+                gauss = sqrt(v * u1) * cos(u2)
+                z1    = sqrt(v * u1) * sin(u2)
             else
                 gauss = z1;
                 z1 = -1000000.0;
