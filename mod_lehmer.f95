@@ -98,11 +98,10 @@ MODULE Lehmer
         end function
 
         function geometric(p) Result(n)
-            REAL::p, uni
+            REAL::p
             INTEGER::n
-            uni = uniform()
-            n = int(log(p)/log(1-uni))+1
 
+            n = ceiling(log(1-uniform())/log(1-p))
         end function
 
         function poisson(lambda) Result(n)
