@@ -60,10 +60,7 @@ MODULE Lehmer
             REAL::p, uni
             success = 0
             do i = 1,n
-                uni = uniform()
-                if(uni <= p) then
-                    success = success+1
-                end if
+                success = success + bernoulli(p)
             end do
         end function
 
@@ -90,22 +87,29 @@ MODULE Lehmer
 
         function lognormal() Result(lognorm)
             REAL::lognorm
-            lognorm = log(gaussApprox())
+            lognorm = exp(gaussApprox())
 
         end function
 
         function geometric(p) Result(n)
-            REAL::p
+            REAL::p, uni
             INTEGER::n
-            n = 0
-            do
-                n = n+1
-                if(bernoulli(p)==1) then
-                    exit
-                end if
-            end do
+            uni = uniform()
+            n = int(log(p)/log(1-uni))+1
 
         end function
 
+        function poisson(lambda) Result(n)
+            INTEGER::n
+            REAL::acc, lambda, limit
+            limit = exp(-1*lambda)
+            acc = 1
+            n = 0
+            do while(acc > limit) 
+                n = n+1
+                acc = acc*uniform()
+            end do
+            n = n-1
+        end function
 
 end module 
