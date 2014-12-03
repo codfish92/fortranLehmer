@@ -43,7 +43,7 @@ MODULE Lehmer
             REAL::pi = 4.*atan(1.)
             REAL::gauss
             !check if there is a value from the last pair 
-            if(z1== -1.0) then 
+            if(z1== -1000000.0) then 
                 u1 = uniform()
                 u2 = uniform()
                 gauss = ((-2*log(u1))**.5) * sin(2*pi*u2)
