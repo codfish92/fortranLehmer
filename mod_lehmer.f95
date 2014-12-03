@@ -82,9 +82,10 @@ MODULE Lehmer
         function chisquare(n) Result(chi)
             INTEGER::n, i
             REAL::chi, gauss, sumation
+
             sumation = 0
             do i = 1,n
-                gauss = gaussApprox()
+                gauss = gaussApprox(1.0)
                 sumation = sumation + gauss**2
             end do
             chi = sumation
@@ -92,8 +93,8 @@ MODULE Lehmer
 
         function lognormal() Result(lognorm)
             REAL::lognorm
-            lognorm = exp(gaussApprox())
 
+            lognorm = exp(gaussApprox(1.0))
         end function
 
         function geometric(p) Result(n)
