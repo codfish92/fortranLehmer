@@ -23,7 +23,8 @@ MODULE Lehmer
         function exponential(lambda) Result(x)
             REAL:: x
             REAL::lambda
-            x = -1*lambda*log(uniform())
+
+            x = log(1-uniform())/(-lambda)
         end function
 
         function randintRange(a, b) Result(randomint)
