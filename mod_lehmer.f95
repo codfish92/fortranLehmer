@@ -40,7 +40,7 @@ MODULE Lehmer
 			if(z1== -1.0) then 
 				u1 = uniform()
 				u2 = uniform()
-				gauss = ((-2*log(u1))**.5) * cos(2*pi*u2)
+				gauss = ((-2*log(u1))**.5) * sin(2*pi*u2)
 				z1 = ((-2*log(u1))**.5) * cos(2*pi*u2)
 			else
 				gauss = z1;
