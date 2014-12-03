@@ -11,7 +11,7 @@ program stats
   ! s*(4) - Old_Mean
   ! s*(5) - Variance * (N-1)
   ! s*(6) - Old_Variance
-  REAL::sbin(6), sber(6), sgeo(6)
+  REAL::sbin(6), sber(6), sgeo(6), schi(6)
   REAL::spoi(6), sgau(6), sexp(6)
 
   ! rand_int, rand_real -- Used to store random draws
@@ -118,6 +118,20 @@ program stats
         sgau(4) = sgau(3)
         sgau(6) = sgau(5)
      endif
+
+     !Chi-Squared
+     rr = chisquare(50)
+     if (i == 1) then
+        schi = (/rr,rr,rr,rr,0.0,0.0/)
+     else
+        schi(1) = MIN(schi(1), rr)
+        schi(2) = MAX(schi(2), rr)
+        schi(3) = schi(4)+(rr-schi(4))/i
+        schi(5) = schi(6)+(rr-schi(4))*(rr-schi(3))
+
+        schi(4) = schi(3)
+        schi(6) = schi(5)
+     endif
   end do
 
   ! Write out Stats
@@ -213,5 +227,20 @@ program stats
   WRITE(*,*)"  Actual:"
   WRITE(*,100)"MIN","MAX","MEAN","VAR","ST.DEV"
   WRITE(*,200)sgau(1),sgau(2),sgau(3),sgau(5)/(iters-1),sqrt(sgau(5)/(iters-1))
+
+  WRITE(*,*)
+  WRITE(*,*)"/======================================\"
+  WRITE(*,*)"| Chi-Squared(k), 0 < k                |"
+  WRITE(*,*)"|  Mean     = k                        |"
+  WRITE(*,*)"|  Variance = 2k                       |"
+  WRITE(*,*)"\--------------------------------------/"
+  WRITE(*,*)"Tested: Chi-Squared(5.0)"
+  WRITE(*,*)"  Expected:"
+  WRITE(*,*)"    Mean     = 50.0"
+  WRITE(*,*)"    Variance = 100.0"
+  WRITE(*,*)"    StdDev   = 10.0"
+  WRITE(*,*)"  Actual:"
+  WRITE(*,100)"MIN","MAX","MEAN","VAR","ST.DEV"
+  WRITE(*,200)schi(1),schi(2),schi(3),schi(5)/(iters-1),sqrt(schi(5)/(iters-1))
 
 end program stats
